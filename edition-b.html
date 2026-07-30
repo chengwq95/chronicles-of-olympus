@@ -49,6 +49,7 @@ h1,h2,h3,h4{font-family:var(--font-display); line-height:1.3; margin:0 0 .4em}
 button{font-family:inherit; cursor:pointer}
 :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.legacy-anchor{position:absolute; top:0; left:0; width:1px; height:1px; pointer-events:none}
 .icon{width:1.15em;height:1.15em;vertical-align:-0.2em;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .icon.fill{fill:currentColor;stroke:none}
 /* ============ 语言模式 ============ */
@@ -660,22 +661,22 @@ html[data-theme="light"] .tree-node{box-shadow:0 2px 8px rgba(90,70,40,.12)}
 
 <!-- ============ 导航栏 ============ -->
 <header>
-<nav class="site-nav" id="siteNav" aria-label="主导航 Main navigation">
+<nav class="site-nav" id="siteNav" aria-label="主导航">
   <div class="nav-inner">
-    <a class="logo" href="#hero">
+    <a class="logo" href="#home">
       <svg class="icon" aria-hidden="true"><use href="#i-column"/></svg>
       <span><span class="zh">奥林匹斯众神志</span><span class="en">Chronicles of Olympus</span><small><span class="zh">CHRONICLES OF OLYMPUS</span><span class="en">ΟΛΥΜΠΟΣ · ΜΥΘΟΛΟΓΙΑ</span></small></span>
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#hero"><span class="zh">首页</span> <span class="en">Home</span></a></li>
-      <li><a href="#figures"><span class="zh">神祇</span> <span class="en">Gods</span></a></li>
-      <li><a href="#figures" data-cat="titan"><span class="zh">泰坦</span> <span class="en">Titans</span></a></li>
-      <li><a href="#figures" data-cat="hero"><span class="zh">英雄</span> <span class="en">Heroes</span></a></li>
-      <li><a href="#figures" data-cat="monster"><span class="zh">怪物</span> <span class="en">Creatures</span></a></li>
-      <li><a href="#myths"><span class="zh">神话故事</span> <span class="en">Myths</span></a></li>
-      <li><a href="#pantheon"><span class="zh">神祇关系</span> <span class="en">Pantheon</span></a></li>
-      <li><a href="#learn"><span class="zh">神话知识</span> <span class="en">Learn</span></a></li>
-      <li><a href="#about"><span class="zh">关于</span> <span class="en">About</span></a></li>
+      <li><a href="#home">首页</a></li>
+      <li><a href="#figures" data-cat="olympian">神祇</a></li>
+      <li><a href="#figures" data-cat="titan">泰坦</a></li>
+      <li><a href="#figures" data-cat="hero">英雄</a></li>
+      <li><a href="#figures" data-cat="monster">怪物</a></li>
+      <li><a href="#myths">神话故事</a></li>
+      <li><a href="#pantheon">神祇关系</a></li>
+      <li><a href="#learn">神话知识</a></li>
+      <li><a href="#about">关于</a></li>
     </ul>
     <div class="nav-tools">
       <div class="lang-group" role="group" aria-label="语言 Language">
@@ -692,7 +693,8 @@ html[data-theme="light"] .tree-node{box-shadow:0 2px 8px rgba(90,70,40,.12)}
 
 <main id="top">
 <!-- ============ Hero ============ -->
-<section class="hero" id="hero" aria-label="首页 Hero">
+<span id="hero" class="legacy-anchor" aria-hidden="true"></span>
+<section class="hero" id="home" aria-label="首页">
   <div class="hero-stars" aria-hidden="true"></div>
   <div class="hero-clouds" aria-hidden="true"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
   <div class="hero-mount" aria-hidden="true">
@@ -971,7 +973,7 @@ html[data-theme="light"] .tree-node{box-shadow:0 2px 8px rgba(90,70,40,.12)}
       <li><a href="#learn"><span class="zh">神话知识</span> <span class="en">Learn</span></a></li>
       <li><a href="#sources"><span class="zh">资料说明</span> <span class="en">Sources</span></a></li>
       <li><a href="#about"><span class="zh">关于</span> <span class="en">About</span></a></li>
-      <li><a href="#hero" id="footTop"><span class="zh">返回顶部</span> <span class="en">Back to Top</span></a></li>
+      <li><a href="#home" id="footTop"><span class="zh">返回顶部</span> <span class="en">Back to Top</span></a></li>
     </ul>
     <p class="foot-disclaimer">
       <span class="zh">本网站为古希腊神话文化学习与创意展示用途。不同古代文献、诗人和地区传统中的神话版本可能有所不同。</span>
@@ -2975,7 +2977,10 @@ $("#navLinks").addEventListener("click",(e)=>{
   const a = e.target.closest("a"); if(!a) return;
   closeMenu();
   const cat = a.getAttribute("data-cat");
-  if(cat){ setCategory(cat); }
+  if(cat){
+    e.preventDefault();
+    jumpToCategory(cat);
+  }
 });
 $("#searchBtn").addEventListener("click",()=>{
   closeMenu();
@@ -3217,6 +3222,14 @@ function setCategory(cat){
   state.cat = cat; state.shown = 12;
   $$("#catFilters .chip").forEach(b=> b.setAttribute("aria-pressed", String(b.dataset.cat===cat)));
   renderCards();
+}
+function jumpToCategory(cat){
+  state.q=""; state.cat=cat; state.sex=""; state.gen=""; state.epic=""; state.sort="pop"; state.shown=12;
+  searchInput.value=""; $("#clearSearch").classList.remove("show");
+  $("#fGender").value=""; $("#fGen").value=""; $("#fEpic").value=""; $("#fSort").value="pop";
+  $$("#catFilters .chip").forEach(b=> b.setAttribute("aria-pressed", String(b.dataset.cat===cat)));
+  renderCards();
+  $("#figures").scrollIntoView({behavior: prefersReduced?"auto":"smooth"});
 }
 buildCatButtons();
 
