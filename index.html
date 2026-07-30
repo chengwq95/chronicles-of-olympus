@@ -193,7 +193,6 @@
 
     .choice {
       --accent: #0f314b;
-      --accent-glow: rgba(28, 90, 127, .34);
       position: relative;
       min-height: clamp(320px, 25vw, 385px);
       display: grid;
@@ -204,12 +203,10 @@
       overflow: hidden;
       background:
         linear-gradient(145deg, rgba(242,232,214,.08), transparent 52%),
-        radial-gradient(circle at 18% 88%, var(--accent-glow), transparent 21rem),
-        rgba(12, 12, 17, .72);
+        rgba(12, 12, 17, .78);
       box-shadow:
         inset 0 0 0 1px rgba(0,0,0,.5),
         0 28px 80px rgba(0,0,0,.42);
-      backdrop-filter: blur(2px) saturate(1.1);
       transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
     }
 
@@ -228,31 +225,40 @@
       z-index: 2;
     }
 
+    .choice::after {
+      z-index: 1;
+      background:
+        radial-gradient(circle at 50% 50%, transparent 0 42%, rgba(0,0,0,.28) 78%),
+        linear-gradient(90deg, rgba(0,0,0,.2), transparent 42%, rgba(0,0,0,.38));
+    }
+
+    .star {
+      background:
+        linear-gradient(90deg, rgba(3, 8, 14, .04), rgba(3, 8, 14, .28)),
+        url("./assets/star-route-card.jpg") center / cover no-repeat,
+        #07101a;
+    }
+
     .star::after {
       background:
-        radial-gradient(circle at 8% 73%, rgba(242,216,145,.95) 0 2px, transparent 4px),
-        radial-gradient(circle at 24% 26%, rgba(242,216,145,.65) 0 1px, transparent 2px),
-        radial-gradient(circle at 38% 57%, rgba(242,216,145,.52) 0 1px, transparent 2px),
-        radial-gradient(circle at 60% 18%, rgba(242,216,145,.5) 0 1px, transparent 2px),
-        repeating-radial-gradient(circle at 8% 73%, transparent 0 52px, rgba(217,178,103,.27) 53px 54px),
-        linear-gradient(28deg, transparent 0 35%, rgba(217,178,103,.16) 35.2%, transparent 35.5%),
-        linear-gradient(148deg, transparent 0 50%, rgba(217,178,103,.12) 50.2%, transparent 50.5%),
-        radial-gradient(circle at 16% 52%, rgba(14,56,88,.46), transparent 28rem);
-      opacity: .9;
+        linear-gradient(90deg, transparent 0 36%, rgba(0,0,0,.24) 54%, rgba(0,0,0,.48) 100%),
+        radial-gradient(circle at 18% 78%, rgba(0,0,0,.08), transparent 17rem);
+      opacity: 1;
     }
 
     .temple {
       --accent: #4c172d;
-      --accent-glow: rgba(98, 25, 55, .38);
+      background:
+        linear-gradient(90deg, rgba(26, 5, 16, .28), transparent 48%, rgba(0,0,0,.04)),
+        url("./assets/temple-route-card.jpg") center / cover no-repeat,
+        #17080f;
     }
 
     .temple::after {
       background:
-        linear-gradient(90deg, transparent 0 55%, rgba(217,178,103,.12) 55.15% 55.8%, transparent 56% 64%, rgba(217,178,103,.24) 64.15% 65%, transparent 65.2% 72%, rgba(217,178,103,.16) 72.15% 72.8%, transparent 73% 82%, rgba(217,178,103,.18) 82.15% 82.8%, transparent 83%),
-        linear-gradient(180deg, transparent 0 18%, rgba(217,178,103,.2) 18.2% 19.1%, transparent 19.4% 79%, rgba(217,178,103,.18) 79.2% 80%, transparent 80.4%),
-        radial-gradient(ellipse at 82% 65%, rgba(217,178,103,.16), transparent 18rem),
-        radial-gradient(circle at 20% 92%, rgba(88,18,50,.45), transparent 23rem);
-      opacity: .9;
+        linear-gradient(90deg, rgba(0,0,0,.16), rgba(0,0,0,.42) 0 42%, transparent 68%),
+        radial-gradient(circle at 18% 80%, rgba(82,15,45,.28), transparent 18rem);
+      opacity: 1;
     }
 
     .choice:hover {
@@ -272,8 +278,8 @@
     .card-copy {
       position: relative;
       z-index: 3;
-      width: min(430px, 62%);
-      padding: clamp(24px, 3vw, 42px);
+      width: min(360px, 54%);
+      padding: clamp(28px, 3.4vw, 48px);
     }
 
     .star .card-copy {
@@ -286,43 +292,29 @@
       text-align: left;
     }
 
-    .route {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--gold-bright);
-      font-family: var(--sans);
-      font-size: 12px;
-      font-weight: 850;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-    }
-
-    .route::before {
-      content: "";
-      width: 50px;
-      height: 1px;
-      background: currentColor;
-      opacity: .82;
-    }
-
-    .star .route {
-      justify-content: center;
-    }
-
     h2 {
-      margin: 20px 0 0;
-      font-size: clamp(40px, 4.5vw, 64px);
+      margin: 0;
+      font-size: clamp(44px, 4.7vw, 72px);
       line-height: .96;
       letter-spacing: -.06em;
       text-shadow: 0 18px 48px rgba(0,0,0,.5);
     }
 
-    .choice p {
-      margin: 12px 0 0;
-      color: var(--ivory-dim);
-      font-size: clamp(15px, 1.15vw, 18px);
-      line-height: 1.62;
+    h2::after {
+      content: "◇";
+      display: block;
+      width: min(210px, 72%);
+      margin: 18px auto 0;
+      border-top: 1px solid rgba(242,216,145,.46);
+      color: var(--gold);
+      font-size: 13px;
+      line-height: 0;
+      text-align: center;
+      text-shadow: 0 0 20px rgba(217,178,103,.6);
+    }
+
+    .temple h2::after {
+      margin-left: 0;
     }
 
     .enter {
@@ -331,8 +323,8 @@
       justify-content: center;
       gap: 24px;
       min-width: 230px;
-      margin-top: 22px;
-      padding: 12px 22px;
+      margin-top: 34px;
+      padding: 14px 24px;
       border: 1px solid rgba(242,216,145,.55);
       background:
         linear-gradient(180deg, rgba(242,216,145,.08), rgba(0,0,0,.2)),
@@ -416,9 +408,6 @@
         text-align: left;
       }
 
-      .star .route {
-        justify-content: flex-start;
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -444,18 +433,14 @@
         <nav class="choices" aria-label="选择图鉴入口">
           <a class="choice star" href="./edition-a.html" aria-label="进入星图版">
             <div class="card-copy">
-              <div class="route">关系与谱系</div>
               <h2>星图版</h2>
-              <p>从人物关系、血缘线索与命运牵引进入，像展开一张夜空地图，沿星轨寻找众神与英雄的位置。</p>
               <span class="enter">进入星图版 <span class="arrow">›</span></span>
             </div>
           </a>
 
           <a class="choice temple" href="./edition-b.html" aria-label="进入神殿版">
             <div class="card-copy">
-              <div class="route">人物与象征</div>
               <h2>神殿版</h2>
-              <p>从神祇、泰坦、英雄与怪物的陈列进入，更适合快速浏览人物身份、象征物与经典故事片段。</p>
               <span class="enter">进入神殿版 <span class="arrow">›</span></span>
             </div>
           </a>
