@@ -3229,6 +3229,7 @@ function jumpToCategory(cat){
   $("#fGender").value=""; $("#fGen").value=""; $("#fEpic").value=""; $("#fSort").value="pop";
   $$("#catFilters .chip").forEach(b=> b.setAttribute("aria-pressed", String(b.dataset.cat===cat)));
   renderCards();
+  history.pushState(null, "", "#figures");
   $("#figures").scrollIntoView({behavior: prefersReduced?"auto":"smooth"});
 }
 buildCatButtons();
