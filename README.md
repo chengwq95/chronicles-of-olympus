@@ -3,8 +3,6 @@
 Ancient Greek mythology character compendium website.
 
 Site structure:
-- `index.html` — neutral entrance page for choosing between two editions.
-- `edition-a.html` — standalone first edition.
-- `edition-b.html` — standalone second edition.
-- `codex-version.html` — legacy path for the first edition.
-- `claude-version.html` — legacy path for the second edition.
+- `index.html` — visual entrance page.
+- `edition-a.html` — 星图版.
+- `edition-b.html` — 神殿版.
