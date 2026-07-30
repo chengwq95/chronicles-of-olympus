@@ -2,7 +2,6 @@
 
 Ancient Greek mythology character compendium website.
 
-Published files:
-- `index.html` — main Codex/OpenAI version.
+Published model versions:
 - `codex-version.html` — standalone Codex/OpenAI model version.
 - `claude-version.html` — standalone Claude model version.
