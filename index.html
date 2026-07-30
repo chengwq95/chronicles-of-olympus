@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>奥林匹斯众神志 · 版本入口</title>
-  <meta name="description" content="奥林匹斯众神志入口：两份独立编排的古希腊神话人物图鉴。" />
+  <title>奥林匹斯众神志 · 入口</title>
+  <meta name="description" content="奥林匹斯众神志：选择星图版或神殿版，进入古希腊神话人物图鉴。" />
   <style>
     :root {
-      --night: #0e1018;
-      --deep: #17141d;
-      --wine: #2a1520;
-      --marble: #f4ecdf;
-      --marble-dim: rgba(244, 236, 223, .72);
-      --marble-faint: rgba(244, 236, 223, .48);
-      --gold: #cda761;
-      --gold-soft: rgba(205, 167, 97, .35);
-      --blue: #233d4d;
-      --fig: #4a2330;
-      --line: rgba(205, 167, 97, .28);
-      --shadow: 0 32px 90px rgba(0, 0, 0, .45);
+      --void: #080812;
+      --night: #10101b;
+      --ash: #1b1822;
+      --stone: #f2e8d6;
+      --stone-dim: rgba(242, 232, 214, .72);
+      --stone-soft: rgba(242, 232, 214, .5);
+      --gold: #d9b25f;
+      --gold-soft: rgba(217, 178, 95, .32);
+      --blue: #12364a;
+      --wine: #4b1830;
+      --line: rgba(217, 178, 95, .26);
+      --shadow: 0 40px 120px rgba(0, 0, 0, .52);
     }
 
     * { box-sizing: border-box; }
@@ -26,16 +26,17 @@
     html {
       min-height: 100%;
       background:
-        radial-gradient(circle at 12% 20%, rgba(205, 167, 97, .16), transparent 28rem),
-        radial-gradient(circle at 88% 18%, rgba(71, 42, 25, .22), transparent 34rem),
-        linear-gradient(135deg, #0d111b 0%, #211823 48%, #11131b 100%);
+        radial-gradient(circle at 12% 18%, rgba(217, 178, 95, .16), transparent 30rem),
+        radial-gradient(circle at 88% 30%, rgba(90, 38, 64, .26), transparent 32rem),
+        linear-gradient(135deg, #070812 0%, #15131d 46%, #241520 100%);
     }
 
     body {
       min-height: 100vh;
       margin: 0;
-      color: var(--marble);
+      color: var(--stone);
       font-family: "Songti SC", "Noto Serif SC", "STSong", Georgia, serif;
+      overflow-x: hidden;
     }
 
     body::before {
@@ -43,281 +44,325 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background:
-        linear-gradient(90deg, transparent 0 49.8%, rgba(205, 167, 97, .1) 50%, transparent 50.2%),
-        linear-gradient(180deg, transparent 0 49.8%, rgba(205, 167, 97, .08) 50%, transparent 50.2%);
-      background-size: 86px 86px;
-      mask-image: radial-gradient(circle at 50% 42%, black 0 42%, transparent 76%);
-      opacity: .65;
+      background-image:
+        linear-gradient(rgba(217, 178, 95, .055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(217, 178, 95, .045) 1px, transparent 1px);
+      background-size: 92px 92px;
+      mask-image: radial-gradient(circle at 50% 42%, black 0 46%, transparent 78%);
+      opacity: .8;
     }
 
     a { color: inherit; }
 
     .stage {
       position: relative;
-      display: grid;
       min-height: 100vh;
-      padding: clamp(22px, 4vw, 56px);
+      padding: clamp(18px, 3vw, 42px);
     }
 
-    .panel {
+    .frame {
       position: relative;
-      width: min(1220px, 100%);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      width: min(1320px, 100%);
+      min-height: calc(100vh - clamp(36px, 6vw, 84px));
       margin: auto;
       border: 1px solid var(--line);
-      border-radius: 28px;
+      border-radius: 34px;
       background:
-        linear-gradient(180deg, rgba(244, 236, 223, .09), rgba(244, 236, 223, .025)),
-        rgba(14, 16, 24, .76);
+        linear-gradient(180deg, rgba(242, 232, 214, .08), rgba(242, 232, 214, .025)),
+        rgba(10, 10, 18, .82);
       box-shadow: var(--shadow);
       overflow: hidden;
+      isolation: isolate;
     }
 
-    .top {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(260px, .55fr);
-      min-height: 430px;
-      border-bottom: 1px solid var(--line);
+    .frame::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      z-index: -1;
+      background:
+        conic-gradient(from 225deg at 58% 36%,
+          transparent 0deg,
+          rgba(217, 178, 95, .22) 42deg,
+          transparent 88deg,
+          rgba(28, 63, 79, .28) 150deg,
+          transparent 218deg,
+          rgba(90, 24, 48, .34) 292deg,
+          transparent 360deg);
+      filter: blur(46px);
+      opacity: .82;
     }
 
     .hero {
-      padding: clamp(34px, 6vw, 78px);
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, .78fr);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-copy {
+      padding: clamp(38px, 6vw, 84px);
     }
 
     .kicker {
       display: inline-flex;
-      gap: 12px;
+      gap: 14px;
       align-items: center;
-      margin-bottom: 24px;
-      color: #e6c987;
+      margin-bottom: 22px;
+      color: #f0cf85;
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .22em;
+      font-weight: 900;
+      letter-spacing: .24em;
       text-transform: uppercase;
     }
 
     .kicker::before {
       content: "";
-      width: 48px;
+      width: 54px;
       height: 1px;
-      background: var(--gold);
+      background: currentColor;
+      opacity: .82;
     }
 
     h1 {
-      max-width: 900px;
+      max-width: 780px;
       margin: 0;
-      font-size: clamp(54px, 9vw, 132px);
-      line-height: .94;
-      letter-spacing: -.075em;
+      font-size: clamp(58px, 9vw, 136px);
+      line-height: .88;
+      letter-spacing: -.08em;
       text-wrap: balance;
     }
 
     .intro {
-      max-width: 760px;
+      max-width: 720px;
       margin: 30px 0 0;
-      color: var(--marble-dim);
-      font-size: clamp(18px, 2.1vw, 25px);
-      line-height: 1.8;
+      color: var(--stone-dim);
+      font-size: clamp(18px, 2vw, 25px);
+      line-height: 1.78;
       text-wrap: balance;
     }
 
-    .seal-wrap {
+    .oracle {
       position: relative;
       display: grid;
       place-items: center;
-      min-height: 100%;
+      min-height: 430px;
       border-left: 1px solid var(--line);
       background:
-        radial-gradient(circle at 50% 45%, rgba(205, 167, 97, .2), transparent 15rem),
-        linear-gradient(160deg, rgba(255,255,255,.035), rgba(255,255,255,0));
+        radial-gradient(circle at 50% 50%, rgba(217, 178, 95, .19), transparent 18rem),
+        linear-gradient(150deg, rgba(255,255,255,.05), rgba(255,255,255,0));
+      overflow: hidden;
     }
 
-    .seal {
-      position: relative;
-      display: grid;
-      place-items: center;
-      width: clamp(190px, 25vw, 310px);
-      aspect-ratio: 1;
-      border: 1px solid rgba(205, 167, 97, .55);
-      border-radius: 999px;
-      color: rgba(244, 236, 223, .88);
-      font-size: clamp(72px, 10vw, 132px);
-      line-height: 1;
-    }
-
-    .seal::before,
-    .seal::after {
+    .oracle::before,
+    .oracle::after {
       content: "";
       position: absolute;
-      inset: 18px;
-      border: 1px solid rgba(205, 167, 97, .32);
-      border-radius: inherit;
+      width: min(70%, 360px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(217, 178, 95, .38);
+      border-radius: 50%;
     }
 
-    .seal::after {
-      inset: 42px;
+    .oracle::before {
+      transform: rotate(18deg);
+      box-shadow: 0 0 0 32px rgba(217, 178, 95, .045), 0 0 80px rgba(217, 178, 95, .14);
+    }
+
+    .oracle::after {
+      width: min(48%, 250px);
       border-style: dashed;
-      opacity: .55;
+      opacity: .58;
     }
 
-    .choice-grid {
+    .omega {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(88px, 11vw, 156px);
+      line-height: 1;
+      color: rgba(242, 232, 214, .9);
+      text-shadow: 0 14px 50px rgba(0, 0, 0, .5);
+    }
+
+    .choices {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      background: var(--line);
       gap: 1px;
+      background: var(--line);
     }
 
     .choice {
       position: relative;
-      min-height: 390px;
-      padding: clamp(30px, 5vw, 58px);
+      min-height: 410px;
+      padding: clamp(34px, 5vw, 66px);
       text-decoration: none;
       background:
-        linear-gradient(145deg, rgba(244, 236, 223, .075), rgba(244, 236, 223, .018)),
-        var(--deep);
+        linear-gradient(145deg, rgba(242, 232, 214, .085), rgba(242, 232, 214, .018)),
+        var(--ash);
       overflow: hidden;
-      transition: transform .28s ease, background .28s ease, filter .28s ease;
+      transition: transform .28s ease, background .28s ease;
     }
 
-    .choice:nth-child(1) { --accent: var(--blue); }
-    .choice:nth-child(2) { --accent: var(--fig); }
+    .choice.star { --accent: var(--blue); --mark: "✦"; }
+    .choice.temple { --accent: var(--wine); --mark: "◈"; }
 
     .choice::before {
       content: "";
       position: absolute;
-      inset: auto -10% -45% 18%;
-      height: 78%;
-      border-radius: 50%;
-      background: radial-gradient(circle, color-mix(in srgb, var(--accent) 82%, transparent), transparent 68%);
-      opacity: .42;
-      filter: blur(4px);
+      inset: auto -20% -50% 12%;
+      height: 92%;
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent) 88%, transparent), transparent 66%);
+      opacity: .54;
+      filter: blur(8px);
+    }
+
+    .choice::after {
+      content: var(--mark);
+      position: absolute;
+      right: clamp(28px, 5vw, 66px);
+      top: clamp(24px, 4vw, 52px);
+      color: rgba(242, 232, 214, .12);
+      font-size: clamp(120px, 18vw, 240px);
+      line-height: 1;
     }
 
     .choice:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
       background:
-        linear-gradient(145deg, rgba(244, 236, 223, .11), rgba(244, 236, 223, .024)),
-        #191722;
+        linear-gradient(145deg, rgba(242, 232, 214, .13), rgba(242, 232, 214, .025)),
+        #201c29;
     }
 
     .choice:focus-visible {
-      outline: 3px solid #efd594;
+      outline: 3px solid #f3d38b;
       outline-offset: -10px;
     }
 
-    .volume {
+    .tag {
       position: relative;
       z-index: 1;
-      display: inline-grid;
-      place-items: center;
-      width: 72px;
-      height: 72px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
       margin-bottom: 34px;
-      border: 1px solid rgba(244, 236, 223, .25);
-      border-radius: 999px;
-      background: rgba(0, 0, 0, .18);
-      color: #f7e7ae;
-      font-family: ui-serif, Georgia, serif;
-      font-size: 24px;
-      letter-spacing: .04em;
-    }
-
-    .label {
-      position: relative;
-      z-index: 1;
-      margin: 0 0 14px;
-      color: rgba(239, 213, 148, .9);
+      color: #f6daa1;
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .22em;
+      font-weight: 900;
+      letter-spacing: .2em;
       text-transform: uppercase;
+    }
+
+    .tag::before {
+      content: "";
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(246, 218, 161, .42);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, color-mix(in srgb, var(--accent) 62%, transparent), transparent 72%),
+        rgba(0, 0, 0, .14);
+      box-shadow: 0 0 34px color-mix(in srgb, var(--accent) 52%, transparent);
     }
 
     .choice h2 {
       position: relative;
       z-index: 1;
       margin: 0;
-      font-size: clamp(38px, 6vw, 76px);
-      line-height: .98;
+      font-size: clamp(42px, 6vw, 82px);
+      line-height: .96;
       letter-spacing: -.055em;
     }
 
     .choice p {
       position: relative;
       z-index: 1;
-      max-width: 520px;
+      max-width: 540px;
       margin: 24px 0 0;
-      color: var(--marble-dim);
-      font-size: 17px;
-      line-height: 1.82;
+      color: var(--stone-dim);
+      font-size: clamp(16px, 1.7vw, 20px);
+      line-height: 1.75;
     }
 
     .enter {
       position: absolute;
       z-index: 1;
-      left: clamp(30px, 5vw, 58px);
-      right: clamp(30px, 5vw, 58px);
-      bottom: clamp(28px, 4vw, 46px);
+      left: clamp(34px, 5vw, 66px);
+      right: clamp(34px, 5vw, 66px);
+      bottom: clamp(28px, 4vw, 52px);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 18px;
       padding-top: 20px;
-      border-top: 1px solid rgba(244, 236, 223, .18);
-      color: #ffe9aa;
+      border-top: 1px solid rgba(242, 232, 214, .18);
+      color: #ffe4a3;
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 14px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: .12em;
     }
 
     .arrow {
       display: grid;
       place-items: center;
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(255, 233, 170, .4);
-      border-radius: 999px;
-      background: rgba(0, 0, 0, .2);
-      transition: transform .28s ease;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 228, 163, .42);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, .18);
+      transition: transform .28s ease, background .28s ease;
     }
 
-    .choice:hover .arrow { transform: translateX(6px); }
+    .choice:hover .arrow {
+      transform: translateX(7px);
+      background: color-mix(in srgb, var(--accent) 48%, rgba(0, 0, 0, .18));
+    }
 
-    .footnote {
+    .footer {
       display: flex;
       justify-content: space-between;
       gap: 22px;
-      padding: 22px clamp(30px, 5vw, 58px);
-      color: var(--marble-faint);
+      padding: 22px clamp(34px, 5vw, 66px);
+      color: var(--stone-soft);
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 13px;
       line-height: 1.7;
-      background: rgba(0, 0, 0, .18);
+      background: rgba(0, 0, 0, .2);
     }
 
-    .footnote span:last-child {
-      color: rgba(239, 213, 148, .72);
+    .footer strong {
+      color: rgba(246, 218, 161, .78);
+      font-weight: 800;
       white-space: nowrap;
     }
 
     @media (max-width: 900px) {
-      .top,
-      .choice-grid {
+      .hero,
+      .choices {
         grid-template-columns: 1fr;
       }
 
-      .seal-wrap {
-        min-height: 250px;
+      .oracle {
+        min-height: 260px;
         border-left: 0;
         border-top: 1px solid var(--line);
       }
 
-      .choice { min-height: 360px; }
-      .footnote { flex-direction: column; }
-      .footnote span:last-child { white-space: normal; }
+      .choice {
+        min-height: 380px;
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+
+      .footer strong {
+        white-space: normal;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -330,47 +375,45 @@
 </head>
 <body>
   <main class="stage">
-    <section class="panel" aria-labelledby="title">
-      <div class="top">
-        <header class="hero">
+    <section class="frame" aria-labelledby="title">
+      <header class="hero">
+        <div class="hero-copy">
           <div class="kicker">Mythological Atlas</div>
           <h1 id="title">奥林匹斯众神志</h1>
           <p class="intro">
-            同一座神话殿堂，两份独立编排。请选择其中一卷进入阅读；它们不是高低比较，也不代表品牌立场，只是两条不同的策展路线。
+            众神、英雄、怪物与命运，在这里被重新陈列。选择一种观看方式，进入你的神话图鉴。
           </p>
-        </header>
-        <aside class="seal-wrap" aria-hidden="true">
-          <div class="seal">Ω</div>
-        </aside>
-      </div>
+        </div>
+        <div class="oracle" aria-hidden="true">
+          <div class="omega">Ω</div>
+        </div>
+      </header>
 
-      <nav class="choice-grid" aria-label="选择图鉴版本">
-        <a class="choice" href="./edition-a.html" aria-label="进入第一卷">
-          <div class="volume">Ⅰ</div>
-          <p class="label">Edition one</p>
-          <h2>第一卷</h2>
-          <p>以恢弘、沉浸的视觉秩序展开众神、英雄与谱系，适合从整体气氛开始阅读。</p>
+      <nav class="choices" aria-label="选择图鉴版本">
+        <a class="choice star" href="./edition-a.html" aria-label="进入星图版">
+          <div class="tag">Celestial route</div>
+          <h2>星图版</h2>
+          <p>像展开一张夜空地图：人物、血缘与故事线索在同一片星幕中相互照亮。</p>
           <div class="enter">
-            <span>进入第一卷</span>
+            <span>进入星图版</span>
             <span class="arrow">→</span>
           </div>
         </a>
 
-        <a class="choice" href="./edition-b.html" aria-label="进入第二卷">
-          <div class="volume">Ⅱ</div>
-          <p class="label">Edition two</p>
-          <h2>第二卷</h2>
-          <p>保留另一份独立图鉴的结构与表达，适合作为平行版本对照浏览。</p>
+        <a class="choice temple" href="./edition-b.html" aria-label="进入神殿版">
+          <div class="tag">Temple route</div>
+          <h2>神殿版</h2>
+          <p>像走进一座神话陈列馆：以更凝练的节奏浏览人物、象征与传说片段。</p>
           <div class="enter">
-            <span>进入第二卷</span>
+            <span>进入神殿版</span>
             <span class="arrow">→</span>
           </div>
         </a>
       </nav>
 
-      <footer class="footnote">
-        <span>首页只负责引路；两卷内容各自独立，不在入口页标注生成来源。</span>
-        <span>Chronicles of Olympus</span>
+      <footer class="footer">
+        <span>两种入口，两种观看路径；内容彼此独立，适合对照浏览。</span>
+        <strong>Chronicles of Olympus</strong>
       </footer>
     </section>
   </main>
