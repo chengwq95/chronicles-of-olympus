@@ -152,6 +152,103 @@ html[data-theme="light"] .lang-group button[aria-pressed="true"]{color:#FBF5E9}
   .nav-tools{margin-left:0}
   .nav-inner{gap:8px}
 }
+@media (max-width:640px){
+  :root{--nav-h:58px}
+  .site-nav{
+    height:calc(var(--nav-h) + env(safe-area-inset-top));
+    padding-top:env(safe-area-inset-top);
+    background:color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter:blur(16px) saturate(1.12);
+    -webkit-backdrop-filter:blur(16px) saturate(1.12);
+    box-shadow:0 1px 0 var(--line-soft), 0 10px 26px rgba(0,0,0,.12);
+  }
+  .site-nav.scrolled{
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+  }
+  html[data-theme="light"] .site-nav{
+    background:color-mix(in srgb, var(--bg) 82%, rgba(255,255,255,.28));
+  }
+  html[data-theme="light"] .site-nav.scrolled{
+    background:color-mix(in srgb, var(--bg) 86%, rgba(255,255,255,.22));
+  }
+  .nav-inner{
+    height:var(--nav-h);
+    padding:0 12px;
+    gap:6px;
+  }
+  .logo{
+    flex:1 1 auto;
+    min-width:0;
+    gap:.42em;
+    font-size:.9rem;
+    line-height:1;
+    letter-spacing:.02em;
+  }
+  .logo > span{
+    min-width:0;
+    overflow:hidden;
+  }
+  .logo .zh{
+    display:block;
+    max-width:8.5em;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .logo .icon{
+    width:1.18em;
+    height:1.18em;
+    flex:0 0 auto;
+  }
+  .logo small{display:none}
+  .nav-tools{
+    flex:0 0 auto;
+    gap:4px;
+    margin-left:0;
+  }
+  .lang-group{
+    height:38px;
+    border-radius:12px;
+    background:color-mix(in srgb, var(--card) 52%, transparent);
+  }
+  .lang-group button{
+    min-width:38px;
+    padding:0 .5em;
+    font-size:.76rem;
+  }
+  .tool-btn{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    background:color-mix(in srgb, var(--card) 44%, transparent);
+  }
+  #menuToggle{margin-left:0}
+  .nav-links{
+    top:calc(var(--nav-h) + env(safe-area-inset-top));
+  }
+  .hero{
+    justify-content:flex-start;
+    padding:calc(var(--nav-h) + env(safe-area-inset-top) + 54px) 18px 98px;
+  }
+  .hero-greek{
+    margin-bottom:22px;
+    font-size:.72rem;
+    letter-spacing:.36em;
+  }
+  .hero h1{
+    font-size:clamp(2.35rem, 12.5vw, 3.1rem);
+  }
+  .hero .subtitle{
+    max-width:21em;
+  }
+}
+@media (max-width:380px){
+  .nav-inner{padding:0 10px}
+  .logo .zh{max-width:6.7em}
+  .tool-btn{width:36px;height:36px}
+  .lang-group{height:36px}
+  .lang-group button{min-width:36px;padding:0 .42em}
+}
 /* ============ Hero ============ */
 .hero{
   min-height:100svh; display:flex; flex-direction:column; justify-content:center; align-items:center;
